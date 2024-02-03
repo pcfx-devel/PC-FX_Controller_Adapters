@@ -63,8 +63,10 @@ const bool sensitivity_adjustable = false;
 
 int sensitivity_level = 1;
 
-const int sensitivity_multiplier[] = {2, 3, 5};
-const int sensitivity_divider = 3;
+const int sensitivity_multiplier_y[] = {2, 3, 5};
+const int sensitivity_multiplier_x[] = {2, 3, 5};
+const int sensitivity_divider_y = 3;
+const int sensitivity_divider_x = 4;
 
 int sens_remainder_x = 0;
 int sens_remainder_y = 0;
@@ -285,14 +287,14 @@ static void process_mouse_report(hid_mouse_report_t const * report)
         sensitivity_level++;
   }
 
-  local_x_temp = (report->x * sensitivity_multiplier[sensitivity_level]) + sens_remainder_x;
-  local_y_temp = (report->y * sensitivity_multiplier[sensitivity_level]) + sens_remainder_y;
+  local_x_temp = (report->x * sensitivity_multiplier_x[sensitivity_level]) + sens_remainder_x;
+  local_y_temp = (report->y * sensitivity_multiplier_y[sensitivity_level]) + sens_remainder_y;
 
-  local_x = local_x_temp / sensitivity_divider;
-  local_y = local_y_temp / sensitivity_divider;
+  local_x = local_x_temp / sensitivity_divider_x;
+  local_y = local_y_temp / sensitivity_divider_y;
 
-  sens_remainder_x = local_x_temp % sensitivity_divider;
-  sens_remainder_y = local_y_temp % sensitivity_divider;
+  sens_remainder_x = local_x_temp % sensitivity_divider_x;
+  sens_remainder_y = local_y_temp % sensitivity_divider_y;
 
 
   // add to accumulator and post to the state machine
